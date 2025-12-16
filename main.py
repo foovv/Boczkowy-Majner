@@ -3,28 +3,37 @@ import time
 import walk
 import keyboard
 
-liczba_stowaniarek = (int(input('Podaj liczbe stowniarek: ')))
+running = False
 
-print("start za 2s")
-time.sleep(2)
+def start():
+    global running
+    if running:
+        return
+    running = True
+    print("start za 2s")
+    time.sleep(2)
+    pyautogui.mouseDown(button='left')
+    
+    while running:
+        walk.walking(b)
+
+    pyautogui.mouseUp(button='left')
+
+def stop():
+    global running
+    running = False
+
 
 def main():
+    print("start za 2s")
+    time.sleep(2)
     walk.walking()
- 
-pyautogui.press('f8')
+    print('koniec')
 
-def on_press():
-    main()
-
-keyboard.add_hotkey("f8", on_press)
-keyboard.add_hotkey("f9", )
+b = int(input("Podaj liczbe stowniarek: "))
 
 
+keyboard.add_hotkey("f8", start)   # START
+keyboard.add_hotkey("f9", stop)
 
-if __name__ == '__main__':
-    main()
-
-
-
-
-print('koniec')
+keyboard.wait()
