@@ -3,10 +3,11 @@ import time
 import pyautogui
 import walk
 import gui
+import universal
 
 running = False
 
-def start(b):
+def start(b, x):
     global running
     if running:
         return
@@ -14,11 +15,16 @@ def start(b):
 
     def loop():
         time.sleep(2)
-        pyautogui.mouseDown(button='left')
+        
+        
 
         while running:
+            pyautogui.mouseDown(button='left')
             walk.walking(b)
-        pyautogui.mouseUp(button='left')
+            pyautogui.mouseUp(button='left')
+            universal.command(x)
+            
+       
 
     threading.Thread(target=loop, daemon=True).start()
 
